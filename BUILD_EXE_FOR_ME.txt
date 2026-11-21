@@ -1,0 +1,21 @@
+HOW TO GET THE WINDOWS EXE
+
+This project needs a Windows build machine. The included GitHub Actions workflow
+builds it on a hosted Windows runner and publishes a downloadable ZIP artifact.
+
+1. Create a free account at https://github.com/ if you do not already have one.
+2. Create a new repository and upload the CONTENTS of this folder.
+3. Open the repository's Actions tab.
+4. Select "Build Windows EXE" and click "Run workflow".
+5. When the run finishes, open it and download the
+   "VideoDownloaderPro-Windows" artifact.
+6. Extract that ZIP. Run VideoDownloaderPro.exe inside the extracted folder.
+
+The application is configured to save downloads by default to:
+C:\Users\Kevin\Downloads
+
+IMPORTANT:
+- This produces a Windows executable using a hosted Windows runner.
+- The executable has not yet been run-tested on your PC.
+- Keep the other files in the extracted application folder beside the EXE.
+- FFmpeg is not bundled; some format conversions/merges may need FFmpeg installed.

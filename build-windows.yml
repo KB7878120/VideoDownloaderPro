@@ -1,0 +1,38 @@
+name: Build Windows EXE
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt pyinstaller
+
+      - name: Build application
+        run: |
+          python -m PyInstaller --noconfirm --clean --windowed --name VideoDownloaderPro --collect-all yt_dlp main.py
+
+      - name: Package executable folder
+        run: |
+          Compress-Archive -Path dist/VideoDownloaderPro/* -DestinationPath VideoDownloaderPro-Windows.zip
+
+      - name: Upload Windows build
+        uses: actions/upload-artifact@v4
+        with:
+          name: VideoDownloaderPro-Windows
+          path: VideoDownloaderPro-Windows.zip
+          if-no-files-found: error
