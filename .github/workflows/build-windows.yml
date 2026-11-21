@@ -1,6 +1,15 @@
-.github/workflows/build-windows.yml
-- name: Set up Python
-        uses: actions/setup-python@v5
+name: Build Windows EXE
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
@@ -11,10 +20,9 @@
           pip install pyinstaller
 
       - name: Build EXE
-        run: |
-          pyinstaller --onefile --windowed --name VideoDownloaderPro --collect-all yt_dlp main.py
+        run: pyinstaller --onefile --windowed --name VideoDownloaderPro --collect-all yt_dlp main.py
 
-      - name: Upload Windows EXE
+      - name: Upload EXE
         uses: actions/upload-artifact@v4
         with:
           name: VideoDownloaderPro-Windows
